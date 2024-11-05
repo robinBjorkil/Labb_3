@@ -34,7 +34,7 @@
                        FontSize="18" FontWeight="SemiBold"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
-                       Text="{Binding SelectedQuestion.Query, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                       Text="{Binding CurrentQuestion.Query, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
             
             <TextBlock x:Name="QuestionNumberTextblock"
                        HorizontalAlignment="Center"
@@ -51,16 +51,20 @@
             </Grid.ColumnDefinitions>
 
             <Button Grid.Column="0"
-                HorizontalAlignment="right"
-                Height="100" Width="300"
-                Margin="10"
-                Content="Test Ruta V.U"/>
+                    HorizontalAlignment="right"
+                    Height="100" Width="300"
+                    Margin="10"
+                    Content="{Binding AnswerOptions[0], Mode=OneWay}"
+                    Command="{Binding AnswerCommand}"
+                    CommandParameter="{Binding AnswerOptions[0]}"/>
 
             <Button Grid.Column="1"
-                HorizontalAlignment="Left"
-                Height="100" Width="300"
-                Margin="10"
-                Content="Test Ruta H.U"/>
+                    HorizontalAlignment="Left"
+                    Height="100" Width="300"
+                    Margin="10"
+                    Content="{Binding AnswerOptions[1], Mode=OneWay}"
+                    Command="{Binding AnswerCommand}"
+                    CommandParameter="{Binding AnswerOptions[1]}"/>
         </Grid>
 
         <Grid Grid.Row="3">
@@ -70,16 +74,20 @@
             </Grid.ColumnDefinitions>
 
             <Button Grid.Column="0"
-                HorizontalAlignment="Right"
-                Height="100" Width="300"
-                Margin="10"
-                Content="Test Ruta V.N"/>
+                    HorizontalAlignment="Right"
+                    Height="100" Width="300"
+                    Margin="10"
+                    Content="{Binding AnswerOptions[2], Mode=OneWay}"
+                    Command="{Binding AnswerCommand}"
+                    CommandParameter="{Binding AnswerOptions[2]}"/>
 
             <Button Grid.Column="1"
-                HorizontalAlignment="Left"
-                Height="100" Width="300"
-                Margin="10"
-                Content="Test Ruta H.N"/>
+                    HorizontalAlignment="Left"
+                    Height="100" Width="300"
+                    Margin="10"
+                    Content="{Binding AnswerOptions[3], Mode=OneWay}"
+                    Command="{Binding AnswerCommand}"
+                    CommandParameter="{Binding AnswerOptions[3]}"/>
         </Grid>
     </Grid>
 </UserControl>

@@ -68,7 +68,7 @@
                     <Separator/>
 
                     <MenuItem Header="_Edit" Icon="{fa:Icon gears}"
-                              Command="{Binding ConfigurationViewModel.EditCommand}"/>
+                              Command="{Binding EditCommand}"/>
                     <Separator/>
 
                     <MenuItem Header="_Fullscreen" Icon="{fa:Icon expand}"

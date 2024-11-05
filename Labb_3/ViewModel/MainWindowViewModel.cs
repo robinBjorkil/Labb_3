@@ -24,6 +24,8 @@ namespace Labb_3.ViewModel
 
         public PlayerResultViewModel PlayerResultViewModel { get; }
 
+        public DelegateCommand EditCommand { get; }
+
         private QuestionPackViewModel? _activePack;
 
 		public QuestionPackViewModel?  ActivePack
@@ -55,10 +57,10 @@ namespace Labb_3.ViewModel
 
         //public bool IsPlayerViewVisible
         //{
-        //    get => _isPlayerViewVisible;
+        //    get => IsPlayerViewVisible;
         //    set
         //    {
-        //        _isPlayerViewVisible = value;
+        //        IsPlayerViewVisible = value;
         //        RaisePropertyChanged();
         //    }
         //}
@@ -73,7 +75,9 @@ namespace Labb_3.ViewModel
 
 			ConfigurationViewModel = new ConfigurationViewModel(this);
 
-			PlayerViewModel = new PlayerViewModel(this);
+            EditCommand = new DelegateCommand(Edit, CanEdit);
+
+            PlayerViewModel = new PlayerViewModel(this);
 
             PlayerResultViewModel = new PlayerResultViewModel(this);
 
@@ -110,6 +114,7 @@ namespace Labb_3.ViewModel
         { 
             ConfigurationViewModel.IsMenuAndConfigVisible = false; // Dölj menyn och config
             PlayerViewModel.IsPlayerViewVisible = true;
+            PlayerViewModel.LoadFirstQuestion();
         }
 
         
@@ -127,6 +132,18 @@ namespace Labb_3.ViewModel
                 //System.Windows.MessageBox.Show($"Selected {ActivePack}");
                 
             }
+        }
+
+        private void Edit(object obj)
+        {
+            ConfigurationViewModel.IsMenuAndConfigVisible = true; // Dölj menyn och config
+            PlayerViewModel.IsPlayerViewVisible = false;
+
+        }
+
+        private bool CanEdit(object? arg)
+        {
+            return true;
         }
 
         private void CreateQuestionPack(object obj)

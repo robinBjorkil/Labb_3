@@ -1,5 +1,9 @@
-﻿using Labb_3.Views;
+﻿using Labb_3.Command;
+using Labb_3.Model;
+using Labb_3.Views;
+using System.Collections.ObjectModel;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Threading;
 
 namespace Labb_3.ViewModel
@@ -7,6 +11,14 @@ namespace Labb_3.ViewModel
     internal class PlayerViewModel : ViewModelBase
     {
         private readonly MainWindowViewModel? mainWindowViewModel;
+
+
+        //TEST PLAYERBINDING ********************************************
+       
+        private Question? currentQuestion;
+        private int currentQuestionIndex;
+        //TEST PLAYERBINDING ********************************************
+
 
         private DispatcherTimer timer;
 
@@ -49,13 +61,95 @@ namespace Labb_3.ViewModel
             timer.Tick += Timer_Tick;
             //timer.Start();
 
-            // Exempel på hur jag kan använda Command för att uppdatera olika saker.
-            // Obs! - read only properties ovan för exemplen.
-            //UpdateButtonCommand = new DelegateCommand(updateButton CanUpdateButton);
-            //AddQuestionCommand = new DelegateCommand(AddQuestion, CanAddQuestion);
+            //TEST PLAYERBINDING ***************************************************
+            LoadFirstQuestion();
+            //TEST PLAYERBINDING ***************************************************
+            AnswerCommand = new DelegateCommand(AnswerSelected);
         }
 
+       
+
+        //TEST PLAYERBINDING ************************************************************
+        public Question? CurrentQuestion
+        {
+            get => currentQuestion;
+            set
+            {
+                currentQuestion = value;
+                RaisePropertyChanged(nameof(CurrentQuestion));
+            }
+        }
+
+        public ObservableCollection<string> AnswerOptions { get; set; } = new ObservableCollection<string>();
+        public DelegateCommand AnswerCommand { get; }
+
         
+
+        public void LoadFirstQuestion()
+        {
+            if (mainWindowViewModel?.ActivePack?.Questions.Count > 0)
+            {
+                currentQuestionIndex = 0;
+                CurrentQuestion = mainWindowViewModel.ActivePack.Questions[currentQuestionIndex];
+                LoadAnswerOptions();
+            }
+        }
+
+        private void LoadAnswerOptions()
+        {
+            AnswerOptions.Clear();
+            if (CurrentQuestion != null)
+            {
+                // Lägg till det korrekta svaret och de felaktiga svaren
+                AnswerOptions.Add(CurrentQuestion.CorrectAnswer);
+                foreach (var incorrectAnswer in CurrentQuestion.InCorrectAnswers)
+                {
+                    AnswerOptions.Add(incorrectAnswer);
+                }
+                ShuffleAnswers();  // Blandar svarsalternativen
+            }
+        }
+
+        private void ShuffleAnswers()
+        {
+            var rnd = new Random();
+            AnswerOptions = new ObservableCollection<string>(AnswerOptions.OrderBy(x => rnd.Next()));
+        }
+
+        private void AnswerSelected(object selectedAnswer)
+        {
+            if (selectedAnswer is string answer)
+            {
+                bool isCorrect = answer == CurrentQuestion?.CorrectAnswer;
+
+                if (isCorrect)
+                {
+                    // Markera knappen som grön (korrekt)
+                }
+                else
+                {
+                    // Markera vald knapp som röd och visa rätt svar
+                }
+
+                NextQuestion();
+            }
+        }
+        
+
+        private void NextQuestion()
+        {
+            if (++currentQuestionIndex < mainWindowViewModel?.ActivePack?.Questions.Count)
+            {
+                CurrentQuestion = mainWindowViewModel.ActivePack.Questions[currentQuestionIndex];
+                LoadAnswerOptions();
+            }
+            else
+            {
+                // Hantera avslut av quiz
+            }
+        }
+        //TEST PLAYERBINDING ************************************************************
+
         private void Timer_Tick(object? sender, EventArgs e)
         {
             ////TIMER

@@ -13,6 +13,7 @@ namespace Labb_3.ViewModel
     internal class ConfigurationViewModel : ViewModelBase
     {
         private readonly MainWindowViewModel? mainWindowViewModel;
+        private readonly PlayerViewModel? playerViewModel;
 
         public QuestionPackViewModel? ActivePack { get => mainWindowViewModel?.ActivePack; }
 
@@ -20,6 +21,7 @@ namespace Labb_3.ViewModel
         {
             this.mainWindowViewModel = mainWindowViewModel;
             IsMenuAndConfigVisible = true;
+
             //************************ DELEGATE COMMANDS *****************************************
 
             //File Commands
@@ -33,7 +35,7 @@ namespace Labb_3.ViewModel
 
             // View Commands
             
-            EditCommand = new DelegateCommand(Edit, CanEdit);
+            
             FullScreenCommand = new DelegateCommand(FullScreen, CanFullScreen);
 
             
@@ -68,7 +70,7 @@ namespace Labb_3.ViewModel
 
         // View Properties
        
-        public DelegateCommand EditCommand { get; }
+        
         public DelegateCommand FullScreenCommand { get; }
 
 
@@ -94,15 +96,7 @@ namespace Labb_3.ViewModel
         // *************** View Methods ***************
        
 
-        private void Edit(object obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool CanEdit(object? arg)
-        {
-            return true;
-        }
+        
 
         private void FullScreen(object obj)
         {
