@@ -110,11 +110,12 @@ namespace Labb_3.ViewModel
 
 
         // ****************** METHODS **************************
-        private void Play(object obj)
+        public void Play(object obj)
         { 
             ConfigurationViewModel.IsMenuAndConfigVisible = false; // Dölj menyn och config
             PlayerViewModel.IsPlayerViewVisible = true;
             PlayerViewModel.LoadFirstQuestion();
+
         }
 
         

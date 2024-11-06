@@ -26,11 +26,12 @@
                 Text="You got 0 out of 1 answers correct!"/>
 
             <Button x:Name="RestartButton" HorizontalAlignment="Center"
-                    Command="{Binding Restart}">
+                    Command="{Binding RestartCommand}">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <fa:IconBlock Icon="Refresh" Margin="5 2 2 2" VerticalAlignment="Center"/>
                     <TextBlock Margin="2 2 5 3" VerticalAlignment="Center"
-                        Text="Restart!"/>
+                               Text="Restart!"/>
+                               
                 </StackPanel>
             </Button>
 

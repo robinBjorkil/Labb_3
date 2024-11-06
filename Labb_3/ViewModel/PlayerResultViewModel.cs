@@ -38,8 +38,8 @@ namespace Labb_3.ViewModel
 
         private void Restart(object obj)
         {
-            //Vad händer när jag trycker på restartknappen?
-            throw new NotImplementedException();
+            IsPlayerResultViewVisible = false;
+            mainWindowViewModel.Play(obj);
         }
     }
 }
