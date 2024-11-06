@@ -39,7 +39,7 @@
             <TextBlock x:Name="QuestionNumberTextblock"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
-                       Text="{Binding ActivePack.Questions.Count }"/>
+                       Text="fråga nr ? av ? Glöm inte Binding på detta!"/>
 
         </StackPanel>
 
@@ -57,7 +57,7 @@
                     Content="{Binding AnswerOptions[0], Mode=OneWay}"
                     Command="{Binding AnswerCommand}"
                     CommandParameter="{Binding AnswerOptions[0]}"/>
-
+            
             <Button Grid.Column="1"
                     HorizontalAlignment="Left"
                     Height="100" Width="300"

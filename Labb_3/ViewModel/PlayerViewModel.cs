@@ -106,18 +106,19 @@ namespace Labb_3.ViewModel
 
             if (CurrentQuestion != null)
             {
+                
+                    // Lägg till det korrekta svaret och de felaktiga svaren
+                    AnswerOptions.Add(CurrentQuestion.CorrectAnswer);
 
-                // Lägg till det korrekta svaret och de felaktiga svaren
-                AnswerOptions.Add(CurrentQuestion.CorrectAnswer);
+                    foreach (var incorrectAnswer in CurrentQuestion.InCorrectAnswers)
+                    {
 
-                foreach (var incorrectAnswer in CurrentQuestion.InCorrectAnswers)
-                {
+                        AnswerOptions.Add(incorrectAnswer);
 
-                    AnswerOptions.Add(incorrectAnswer);
-
-                }
-                // Blandar svarsalternativen
-                ShuffleAnswers();
+                    }
+                    // Blandar svarsalternativen
+                    ShuffleAnswers();
+ 
             }
         }
 
