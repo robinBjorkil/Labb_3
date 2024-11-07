@@ -48,8 +48,8 @@ namespace Labb_3.ViewModel
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += Timer_Tick;
-            timer.Start();
-            LoadFirstQuestion();
+            //timer.Start();
+            //LoadFirstQuestion();
 
 
             AnswerCommand = new DelegateCommand(AnswerSelected);
@@ -66,18 +66,34 @@ namespace Labb_3.ViewModel
 
             }
         }
-
+        public ObservableCollection<Question> ShuffledQuestions = new ObservableCollection<Question>();
         public ObservableCollection<string> AnswerOptions { get; set; } = new ObservableCollection<string>();
         public DelegateCommand AnswerCommand { get; }
 
-//      ***************************** METHODS *******************************
+
+        private string _questionCounter;  
+        public string QuestionCounter
+        {
+
+            get { return $"Fråga {currentQuestionIndex + 1} av {mainWindowViewModel.ActivePack.Questions.Count.ToString()}"; }
+            set { _questionCounter = value; RaisePropertyChanged(); }
+        }
+
+
+
+
+
+
+
+
+        //      ***************************** METHODS *******************************
         public void LoadFirstQuestion()
         {
             if (mainWindowViewModel?.ActivePack?.Questions.Count > 0)
             {
                 ShuffleQuestions();
                 currentQuestionIndex = 0;
-                CurrentQuestion = mainWindowViewModel.ActivePack.Questions[currentQuestionIndex];
+                CurrentQuestion = ShuffledQuestions[currentQuestionIndex];
                 RemainingTime = mainWindowViewModel!.ActivePack!.TimeLimitInSeconds;
                 timer.Start();
                 LoadAnswerOptions();
@@ -89,50 +105,53 @@ namespace Labb_3.ViewModel
             if (mainWindowViewModel?.ActivePack?.Questions != null)
             {
                 var rnd = new Random();
-                var shuffledQuestions = mainWindowViewModel.ActivePack.Questions.OrderBy(x => rnd.Next()).ToList();
+                var tempQuestions = mainWindowViewModel.ActivePack.Questions.OrderBy(x => rnd.Next()).ToList();
 
                 // Kopiera tillbaka till frågelistan
-                mainWindowViewModel.ActivePack.Questions.Clear();
-                foreach (var question in shuffledQuestions)
+                // mainWindowViewModel.ActivePack.Questions.Clear();
+                foreach (var question in tempQuestions)
                 {
-                    mainWindowViewModel.ActivePack.Questions.Add(question);
+                    ShuffledQuestions.Add(question);
                 }
             }
         }
 
         private void LoadAnswerOptions()
         {
-            AnswerOptions.Clear();
+            //AnswerOptions.Clear();
 
             if (CurrentQuestion != null)
             {
-                
-                    // Lägg till det korrekta svaret och de felaktiga svaren
-                    AnswerOptions.Add(CurrentQuestion.CorrectAnswer);
 
-                    foreach (var incorrectAnswer in CurrentQuestion.InCorrectAnswers)
-                    {
+                var tempAnswerOptions = new ObservableCollection<String>();
+                // Lägg till det korrekta svaret och de felaktiga svaren
+                tempAnswerOptions.Add(CurrentQuestion.CorrectAnswer);
 
-                        AnswerOptions.Add(incorrectAnswer);
+                foreach (var incorrectAnswer in CurrentQuestion.InCorrectAnswers)
+                {
 
-                    }
-                    // Blandar svarsalternativen
-                    ShuffleAnswers();
- 
+                    tempAnswerOptions.Add(incorrectAnswer);
+
+                }
+                AnswerOptions = tempAnswerOptions;
+                // Blandar svarsalternativen
+                ShuffleAnswers();
+                //Debug.WriteLine("sssssssssssssssssssssssssssss" + AnswerOptions.Count);
+
             }
         }
 
         private void ShuffleAnswers()
         {
             var rnd = new Random();
-            //AnswerOptions = new ObservableCollection<string>(AnswerOptions.OrderBy(x => rnd.Next()));
             var shuffledAnswers = AnswerOptions.OrderBy(x => rnd.Next()).ToList();
+            AnswerOptions = new ObservableCollection<string>(shuffledAnswers);
 
-            AnswerOptions.Clear();
-            foreach (var answer in shuffledAnswers)
-            {
-                AnswerOptions.Add(answer);
-            }
+            //AnswerOptions.Clear();
+            //foreach (var answer in shuffledAnswers)
+            //{
+            //    AnswerOptions.Add(answer);
+            //}
             RaisePropertyChanged(nameof(AnswerOptions));
         }
 
@@ -144,6 +163,7 @@ namespace Labb_3.ViewModel
 
                 if (isCorrect)
                 {
+
                     // Markera knappen som grön (korrekt)
                 }
                 else
@@ -158,12 +178,13 @@ namespace Labb_3.ViewModel
 
         private void NextQuestion()
         {
-            if (++currentQuestionIndex < mainWindowViewModel?.ActivePack?.Questions.Count)
+            //Debug.WriteLine("rrrrrrrrrrrrr" + currentQuestionIndex);
+            if (++currentQuestionIndex < ShuffledQuestions.Count)
             {
-                CurrentQuestion = mainWindowViewModel.ActivePack.Questions[currentQuestionIndex];
+                CurrentQuestion = ShuffledQuestions[currentQuestionIndex];
                 RemainingTime = mainWindowViewModel.ActivePack.TimeLimitInSeconds; // Återställ tid
-                timer.Start(); // Starta om timern
                 LoadAnswerOptions();
+                timer.Start(); // Starta om timern
             }
             else
             {
@@ -176,6 +197,8 @@ namespace Labb_3.ViewModel
                 }
 
             }
+            RaisePropertyChanged(nameof(QuestionCounter));
+
         }
 
         private void Timer_Tick(object? sender, EventArgs e)

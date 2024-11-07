@@ -75,16 +75,24 @@ namespace Labb_3.ViewModel
 
 			ConfigurationViewModel = new ConfigurationViewModel(this);
 
+
             EditCommand = new DelegateCommand(Edit, CanEdit);
+
 
             PlayerViewModel = new PlayerViewModel(this);
 
-            PlayerResultViewModel = new PlayerResultViewModel(this);
-
             ActivePack = new QuestionPackViewModel(new QuestionPack("My Question Pack"));
 
-
 			Packs.Add(ActivePack);
+
+            PlayerViewModel.AnswerOptions.Add("");
+            PlayerViewModel.AnswerOptions.Add("");
+            PlayerViewModel.AnswerOptions.Add("");
+            PlayerViewModel.AnswerOptions.Add("");
+
+
+            PlayerResultViewModel = new PlayerResultViewModel(this);
+
 
 
             // *************** DELEGATE COMMANDS **********************
@@ -112,9 +120,14 @@ namespace Labb_3.ViewModel
         // ****************** METHODS **************************
         public void Play(object obj)
         { 
+
             ConfigurationViewModel.IsMenuAndConfigVisible = false; // Dölj menyn och config
+
             PlayerViewModel.IsPlayerViewVisible = true;
+            PlayerViewModel.ShuffledQuestions.Clear();
             PlayerViewModel.LoadFirstQuestion();
+            
+            PlayerViewModel.RaisePropertyChanged(nameof(PlayerViewModel.QuestionCounter));
 
         }
 
@@ -139,7 +152,7 @@ namespace Labb_3.ViewModel
         {
             ConfigurationViewModel.IsMenuAndConfigVisible = true; // Dölj menyn och config
             PlayerViewModel.IsPlayerViewVisible = false;
-
+            PlayerResultViewModel.IsPlayerResultViewVisible = false;
         }
 
         private bool CanEdit(object? arg)

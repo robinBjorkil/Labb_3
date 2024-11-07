@@ -14,6 +14,7 @@ namespace Labb_3.ViewModel
     {
         private readonly MainWindowViewModel? mainWindowViewModel;
         private readonly PlayerViewModel? playerViewModel;
+        
 
         public QuestionPackViewModel? ActivePack { get => mainWindowViewModel?.ActivePack; }
 
@@ -21,6 +22,7 @@ namespace Labb_3.ViewModel
         {
             this.mainWindowViewModel = mainWindowViewModel;
             IsMenuAndConfigVisible = true;
+            
 
             //************************ DELEGATE COMMANDS *****************************************
 

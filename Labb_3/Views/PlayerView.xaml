@@ -36,10 +36,10 @@
                        VerticalAlignment="Center"
                        Text="{Binding CurrentQuestion.Query, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
             
-            <TextBlock x:Name="QuestionNumberTextblock"
+            <Label x:Name="QuestionNumberTextblock"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
-                       Text="fråga nr ? av ? Glöm inte Binding på detta!"/>
+                       Content="{Binding QuestionCounter, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
         </StackPanel>
 
@@ -54,7 +54,7 @@
                     HorizontalAlignment="right"
                     Height="100" Width="300"
                     Margin="10"
-                    Content="{Binding AnswerOptions[0], Mode=OneWay}"
+                    Content="{Binding AnswerOptions[0], UpdateSourceTrigger=PropertyChanged}"
                     Command="{Binding AnswerCommand}"
                     CommandParameter="{Binding AnswerOptions[0]}"/>
             
@@ -62,7 +62,7 @@
                     HorizontalAlignment="Left"
                     Height="100" Width="300"
                     Margin="10"
-                    Content="{Binding AnswerOptions[1], Mode=OneWay}"
+                    Content="{Binding AnswerOptions[1], UpdateSourceTrigger=PropertyChanged}"
                     Command="{Binding AnswerCommand}"
                     CommandParameter="{Binding AnswerOptions[1]}"/>
         </Grid>
@@ -77,7 +77,7 @@
                     HorizontalAlignment="Right"
                     Height="100" Width="300"
                     Margin="10"
-                    Content="{Binding AnswerOptions[2], Mode=OneWay}"
+                    Content="{Binding AnswerOptions[2], UpdateSourceTrigger=PropertyChanged}"
                     Command="{Binding AnswerCommand}"
                     CommandParameter="{Binding AnswerOptions[2]}"/>
 
@@ -85,7 +85,7 @@
                     HorizontalAlignment="Left"
                     Height="100" Width="300"
                     Margin="10"
-                    Content="{Binding AnswerOptions[3], Mode=OneWay}"
+                    Content="{Binding AnswerOptions[3], UpdateSourceTrigger=PropertyChanged}"
                     Command="{Binding AnswerCommand}"
                     CommandParameter="{Binding AnswerOptions[3]}"/>
         </Grid>

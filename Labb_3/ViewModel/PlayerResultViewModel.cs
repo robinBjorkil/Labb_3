@@ -39,6 +39,7 @@ namespace Labb_3.ViewModel
         private void Restart(object obj)
         {
             IsPlayerResultViewVisible = false;
+
             mainWindowViewModel.Play(obj);
         }
     }
