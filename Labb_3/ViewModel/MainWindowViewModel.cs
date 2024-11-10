@@ -40,32 +40,6 @@ namespace Labb_3.ViewModel
             }
         }
 
-        //TEST AV VY
-        //private bool _isMenuAndConfigVisible;
-        ////private bool _isPlayerViewVisible;
-        ////TEST AV VY
-
-        //public bool IsMenuAndConfigVisible
-        //{
-        //    get => _isMenuAndConfigVisible;
-        //    set
-        //    {
-        //        _isMenuAndConfigVisible = value;
-        //        RaisePropertyChanged();
-        //    }
-        //}
-
-        //public bool IsPlayerViewVisible
-        //{
-        //    get => IsPlayerViewVisible;
-        //    set
-        //    {
-        //        IsPlayerViewVisible = value;
-        //        RaisePropertyChanged();
-        //    }
-        //}
-
-
         public MainWindowViewModel()
         {
             //IsMenuAndConfigVisible = true;

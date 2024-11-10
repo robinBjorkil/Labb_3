@@ -9,6 +9,7 @@ using System.Windows.Threading;
 namespace Labb_3.ViewModel 
 {
     internal class PlayerResultViewModel : ViewModelBase
+
     {
         private readonly MainWindowViewModel? mainWindowViewModel;
 

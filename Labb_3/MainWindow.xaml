@@ -40,8 +40,8 @@
                               Converter={StaticResource BoolToVisibilityConverter}}" />
 
             <views:PlayerResultView Grid.Row="1"
-                  DataContext="{Binding PlayerResultViewModel}"
-                  Visibility="{Binding IsPlayerResultViewVisible,
+                  
+                  Visibility="{Binding PlayerResultViewModel.IsPlayerResultViewVisible,
                   Converter={StaticResource BoolToVisibilityConverter}}" />
 
 

@@ -71,7 +71,9 @@ namespace Labb_3.ViewModel
         public DelegateCommand AnswerCommand { get; }
 
 
-        private string _questionCounter;  
+        private string _questionCounter;
+        private int _rightAnswersNumber;
+
         public string QuestionCounter
         {
 
@@ -93,6 +95,7 @@ namespace Labb_3.ViewModel
             {
                 ShuffleQuestions();
                 currentQuestionIndex = 0;
+                RightAnswersNumber = 0;
                 CurrentQuestion = ShuffledQuestions[currentQuestionIndex];
                 RemainingTime = mainWindowViewModel!.ActivePack!.TimeLimitInSeconds;
                 timer.Start();
@@ -155,6 +158,16 @@ namespace Labb_3.ViewModel
             RaisePropertyChanged(nameof(AnswerOptions));
         }
 
+        public int RightAnswersNumber
+        { 
+            get => _rightAnswersNumber;
+            private set
+            {
+                _rightAnswersNumber = value;
+                RaisePropertyChanged();
+            
+            }
+        }
         private void AnswerSelected(object selectedAnswer)
         {
             if (selectedAnswer is string answer)
@@ -163,6 +176,7 @@ namespace Labb_3.ViewModel
 
                 if (isCorrect)
                 {
+                    RightAnswersNumber++;
 
                     // Markera knappen som grön (korrekt)
                 }

@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
-             DataContext="{Binding PlayerResultViewModel}"
              xmlns:local="clr-namespace:Labb_3.Views"
              mc:Ignorable="d" 
              d:DesignHeight="452" d:DesignWidth="800">
@@ -23,10 +22,10 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Margin="0 0 0 20"       
-                Text="You got 0 out of 1 answers correct!"/>
+                Text="{Binding PlayerViewModel.RightAnswersNumber}"/>
 
             <Button x:Name="RestartButton" HorizontalAlignment="Center"
-                    Command="{Binding RestartCommand}">
+                    Command="{Binding PlayerResultViewModel.RestartCommand}">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <fa:IconBlock Icon="Refresh" Margin="5 2 2 2" VerticalAlignment="Center"/>
                     <TextBlock Margin="2 2 5 3" VerticalAlignment="Center"
