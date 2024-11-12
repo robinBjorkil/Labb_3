@@ -65,15 +65,7 @@ namespace Labb_3.ViewModel
             PlayerViewModel.AnswerOptions.Add("");
             PlayerViewModel.AnswerOptions.Add("");
 
-            //PlayerViewModel.ButtonContent.Add("");
-            //PlayerViewModel.ButtonContent.Add("");
-            //PlayerViewModel.ButtonContent.Add("");
-            //PlayerViewModel.ButtonContent.Add("");
-
-
-
             PlayerResultViewModel = new PlayerResultViewModel(this);
-
 
 
             // *************** DELEGATE COMMANDS **********************
@@ -85,8 +77,6 @@ namespace Labb_3.ViewModel
             PlayCommand = new DelegateCommand(Play);
             
         }
-
-        
 
 
         // ************** PROPERTIES **************************

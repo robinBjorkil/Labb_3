@@ -64,33 +64,41 @@
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
-        </ListBox> 
+        </ListBox>
 
+        <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Margin="0 10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Vertical" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Margin="0 10">
+            <Label Content="Question" Grid.Row="0" FontWeight="DemiBold" Margin="20 0 0 0"/>
+            <TextBox Grid.Row="1" Height="100" Width="300" HorizontalAlignment="Left" Margin="20 0 0 40"
+             Text="{Binding SelectedQuestion.Query, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
-            <Label Content="Question"
-                   FontWeight="DemiBold"
-                   Margin="20 0 0 0"/>
+            <Label Content="Correct Answer" Grid.Row="2" FontWeight="DemiBold" Margin="20 0 0 0"/>
+            <TextBox Grid.Row="3" Width="300" HorizontalAlignment="Left" Margin="20 0 0 5"
+             Text="{Binding SelectedQuestion.CorrectAnswer, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
-            <TextBox Height="100" Width="350" Margin="0 0 0 40"
-                     Text="{Binding SelectedQuestion.Query, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <Label Content="First Incorrect Answer" Grid.Row="4" FontWeight="DemiBold" Margin="20 0 0 0"/>
+            <TextBox Grid.Row="5" Width="300" HorizontalAlignment="Left" Margin="20 0 0 5"
+             Text="{Binding SelectedQuestion.InCorrectAnswers[0], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
-            <Label Content="Correct Answer" FontWeight="DemiBold" Margin="20 0 0 0"/>
-            <TextBox Text="{Binding SelectedQuestion.CorrectAnswer, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                     Width="350" Margin="0 0 0 5"/>
+            <Label Content="Second Incorrect Answer" Grid.Row="6" FontWeight="DemiBold" Margin="20 0 0 0"/>
+            <TextBox Grid.Row="7" Width="300" HorizontalAlignment="Left" Margin="20 0 0 5"
+             Text="{Binding SelectedQuestion.InCorrectAnswers[1], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
-            <Label Content="First Incorrect Answer" FontWeight="DemiBold" Margin="20 0 0 0"/>
-            <TextBox Text="{Binding SelectedQuestion.InCorrectAnswers[0], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                     Width="350" Margin="0 0 0 5"/>
-
-            <Label Content="Second Inorrect Answer" FontWeight="DemiBold" Margin="20 0 0 0"/>
-            <TextBox Text="{Binding SelectedQuestion.InCorrectAnswers[1], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                     Width="350" Margin="0 0 0 5"/>
-
-            <Label Content="Third Incorrect Answer" FontWeight="DemiBold" Margin="20 0 0 0"/>
-            <TextBox Text="{Binding SelectedQuestion.InCorrectAnswers[2], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                     Width="350"/>
-        </StackPanel>
+            <Label Content="Third Incorrect Answer" Grid.Row="8" FontWeight="DemiBold" Margin="20 0 0 0"/>
+            <TextBox Grid.Row="9" Width="300" HorizontalAlignment="Left" Margin="20 0 0 0"
+             Text="{Binding SelectedQuestion.InCorrectAnswers[2], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+        </Grid>
     </Grid>
 </UserControl>

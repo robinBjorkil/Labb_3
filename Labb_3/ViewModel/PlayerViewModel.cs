@@ -202,12 +202,16 @@ namespace Labb_3.ViewModel
 
     private async void AnswerSelected(object? selectedAnswer)
         {
+            // Om val är inaktiverat, returnera direkt.
+            if (!IsSelectionEnabled)
+                return;
+
+            // Lås valmöjligheterna
+            IsSelectionEnabled = false;
+
             if (selectedAnswer is string answer)
             {
                 bool isCorrect = answer == CurrentQuestion?.CorrectAnswer;
-
-                
-                //IsAnswerCorrect = isCorrect;
 
                 if (isCorrect)
                 {
@@ -218,7 +222,7 @@ namespace Labb_3.ViewModel
                         ButtonContent[index] = $"{CurrentQuestion.CorrectAnswer} \n Detta var rätt svar!";
                         RaisePropertyChanged(nameof(ButtonContent));
                     }
-                    // Markera knappen som grön (korrekt)
+                    
                 }
                 else
                 {
@@ -229,23 +233,25 @@ namespace Labb_3.ViewModel
                         RaisePropertyChanged(nameof(ButtonContent));
                     }
 
-                    // Markera vald knapp som röd och visa rätt svar
                 }
                 await Task.Delay(3000);
                 NextQuestion();
             }
+            // Återaktivera valmöjligheterna efter att svaret har hanterats
+            IsSelectionEnabled = true;
         }
-        // FORTSÄTT HÄRIFRÅN!!
-        //private bool _isSelectionEnabled = true;
-        //public bool IsSelectionEnabled
-        //{
-        //    get => _isSelectionEnabled;
-        //    set
-        //    {
-        //        _isSelectionEnabled = value;
-        //        RaisePropertyChanged(nameof(IsSelectionEnabled));
-        //    }
-        //}
+
+        // STOPPA FRÅN ATT TRYCKA PÅ FLERA SVAR SAMTIDIGT.
+        private bool _isSelectionEnabled = true;
+        public bool IsSelectionEnabled
+        {
+            get => _isSelectionEnabled;
+            set
+            {
+                _isSelectionEnabled = value;
+                RaisePropertyChanged(nameof(IsSelectionEnabled));
+            }
+        }
 
 
 
