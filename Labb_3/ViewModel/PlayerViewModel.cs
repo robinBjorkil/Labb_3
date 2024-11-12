@@ -1,6 +1,7 @@
 ﻿using Labb_3.Command;
 using Labb_3.Model;
 using System.Collections.ObjectModel;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace Labb_3.ViewModel
@@ -10,6 +11,10 @@ namespace Labb_3.ViewModel
         private readonly MainWindowViewModel? mainWindowViewModel;
         private readonly ConfigurationViewModel? configurationViewModel;
         private readonly PlayerResultViewModel? playerResultViewModel;
+
+        private Brush _buttonColor;
+
+        public Brush ButtonColor { get; set; }
 
         private Question? currentQuestion;
         private int currentQuestionIndex;
@@ -52,6 +57,7 @@ namespace Labb_3.ViewModel
             //LoadFirstQuestion();
 
 
+            //Lägg till en metod för Canexecute 
             AnswerCommand = new DelegateCommand(AnswerSelected);
 
         }
@@ -80,11 +86,6 @@ namespace Labb_3.ViewModel
             get { return $"Fråga {currentQuestionIndex + 1} av {mainWindowViewModel.ActivePack.Questions.Count.ToString()}"; }
             set { _questionCounter = value; RaisePropertyChanged(); }
         }
-
-
-
-
-
 
 
 
@@ -119,6 +120,17 @@ namespace Labb_3.ViewModel
             }
         }
 
+        // ÄNDRA KNAPPAR
+        public ObservableCollection<string> ButtonContent { get; set; } = new ObservableCollection<string>
+        {
+            "",
+            "",
+            "",
+            ""
+        };
+
+
+
         private void LoadAnswerOptions()
         {
             //AnswerOptions.Clear();
@@ -139,8 +151,19 @@ namespace Labb_3.ViewModel
                 AnswerOptions = tempAnswerOptions;
                 // Blandar svarsalternativen
                 ShuffleAnswers();
-                //Debug.WriteLine("sssssssssssssssssssssssssssss" + AnswerOptions.Count);
+                
 
+                for (int i = 0; i < ButtonContent.Count; i ++)
+                {
+                    ButtonContent[i] = AnswerOptions[i];
+                }
+                ////ÄNDRA KNAPPAR
+                //ButtonContent.Clear();
+                //foreach (var answer in AnswerOptions)
+                //{
+                //    ButtonContent.Add(answer);
+                //}
+                RaisePropertyChanged(nameof(ButtonContent));
             }
         }
 
@@ -150,44 +173,80 @@ namespace Labb_3.ViewModel
             var shuffledAnswers = AnswerOptions.OrderBy(x => rnd.Next()).ToList();
             AnswerOptions = new ObservableCollection<string>(shuffledAnswers);
 
-            //AnswerOptions.Clear();
-            //foreach (var answer in shuffledAnswers)
-            //{
-            //    AnswerOptions.Add(answer);
-            //}
             RaisePropertyChanged(nameof(AnswerOptions));
         }
 
         public int RightAnswersNumber
-        { 
+        {
             get => _rightAnswersNumber;
             private set
             {
                 _rightAnswersNumber = value;
                 RaisePropertyChanged();
-            
+                RaisePropertyChanged(nameof(ResultSummary));
             }
         }
-        private void AnswerSelected(object selectedAnswer)
+
+        public string ResultSummary
+        {
+            get
+
+            {
+                int totalQuestions = mainWindowViewModel?.ActivePack?.Questions.Count ?? 0;
+                return $"Du fick {RightAnswersNumber} rätt av {totalQuestions} frågor.";
+
+
+            }
+        }
+
+
+    private async void AnswerSelected(object? selectedAnswer)
         {
             if (selectedAnswer is string answer)
             {
                 bool isCorrect = answer == CurrentQuestion?.CorrectAnswer;
 
+                
+                //IsAnswerCorrect = isCorrect;
+
                 if (isCorrect)
                 {
                     RightAnswersNumber++;
-
+                    int index = AnswerOptions.IndexOf(answer);
+                    if (index >= 0)
+                    {
+                        ButtonContent[index] = $"{CurrentQuestion.CorrectAnswer} \n Detta var rätt svar!";
+                        RaisePropertyChanged(nameof(ButtonContent));
+                    }
                     // Markera knappen som grön (korrekt)
                 }
                 else
                 {
+                    int index = AnswerOptions.IndexOf(answer);
+                    if (index >= 0)
+                    {
+                        ButtonContent[index] = $"Detta var fel svar, det rätta svaret är: {CurrentQuestion.CorrectAnswer}";
+                        RaisePropertyChanged(nameof(ButtonContent));
+                    }
+
                     // Markera vald knapp som röd och visa rätt svar
                 }
-
+                await Task.Delay(3000);
                 NextQuestion();
             }
         }
+        // FORTSÄTT HÄRIFRÅN!!
+        //private bool _isSelectionEnabled = true;
+        //public bool IsSelectionEnabled
+        //{
+        //    get => _isSelectionEnabled;
+        //    set
+        //    {
+        //        _isSelectionEnabled = value;
+        //        RaisePropertyChanged(nameof(IsSelectionEnabled));
+        //    }
+        //}
+
 
 
         private void NextQuestion()

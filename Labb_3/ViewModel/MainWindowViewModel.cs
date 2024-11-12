@@ -44,8 +44,9 @@ namespace Labb_3.ViewModel
         {
             //IsMenuAndConfigVisible = true;
             //IsPlayerViewVisible = false;
-
+            
             Packs = new ObservableCollection<QuestionPackViewModel>();
+            //Json.Load();
 
 			ConfigurationViewModel = new ConfigurationViewModel(this);
 
@@ -63,6 +64,12 @@ namespace Labb_3.ViewModel
             PlayerViewModel.AnswerOptions.Add("");
             PlayerViewModel.AnswerOptions.Add("");
             PlayerViewModel.AnswerOptions.Add("");
+
+            //PlayerViewModel.ButtonContent.Add("");
+            //PlayerViewModel.ButtonContent.Add("");
+            //PlayerViewModel.ButtonContent.Add("");
+            //PlayerViewModel.ButtonContent.Add("");
+
 
 
             PlayerResultViewModel = new PlayerResultViewModel(this);

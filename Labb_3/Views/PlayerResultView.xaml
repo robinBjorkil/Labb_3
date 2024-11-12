@@ -22,7 +22,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Margin="0 0 0 20"       
-                Text="{Binding PlayerViewModel.RightAnswersNumber}"/>
+                Text="{Binding PlayerViewModel.ResultSummary}"/>
 
             <Button x:Name="RestartButton" HorizontalAlignment="Center"
                     Command="{Binding PlayerResultViewModel.RestartCommand}">

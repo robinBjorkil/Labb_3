@@ -19,5 +19,11 @@
         public int TimeLimitInSeconds { get; set; }
 
         public List<Question> Questions { get; set; }
+
+
+        public QuestionPack()
+        {
+            
+        }
     }
 }
