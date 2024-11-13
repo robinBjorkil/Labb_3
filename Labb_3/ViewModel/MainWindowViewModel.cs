@@ -46,8 +46,9 @@ namespace Labb_3.ViewModel
             //IsPlayerViewVisible = false;
             
             Packs = new ObservableCollection<QuestionPackViewModel>();
-            //Json.Load();
 
+
+           
 			ConfigurationViewModel = new ConfigurationViewModel(this);
 
 
@@ -102,7 +103,10 @@ namespace Labb_3.ViewModel
 
         }
 
-        
+       
+
+
+
         private void CancelQuestionPack(object obj)
         {
             _newPackDialog!.Close();

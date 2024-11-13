@@ -18,6 +18,7 @@ namespace Labb_3.ViewModel
 
         public QuestionPackViewModel? ActivePack { get => mainWindowViewModel?.ActivePack; }
 
+        
         public ConfigurationViewModel(MainWindowViewModel? mainWindowViewModel)
         {
             this.mainWindowViewModel = mainWindowViewModel;
@@ -175,7 +176,7 @@ namespace Labb_3.ViewModel
 
         private void ImportQuestions(object obj)
         {
-            System.Windows.MessageBox.Show("Import Command fungerar! Tjohoo!!");
+            System.Windows.MessageBox.Show("Det är just nu inte möjligt att importera frågor men IT-teamet levererar strax en sådan funktion. Under tiden är det fullt möjligt att spara egna frågepaket med egna frågor.");
         }
 
         private bool CanImportQuestions(object? arg)
