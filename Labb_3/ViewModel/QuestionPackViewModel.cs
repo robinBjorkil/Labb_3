@@ -49,6 +49,12 @@ namespace Labb_3.ViewModel
 
         public ObservableCollection<Question> Questions { get; }
 
+
+        //JSON
+        public QuestionPack Model => model;
+        //JSON
+
+
         public override string ToString()
         {
             return $"{Name} ({Difficulty}) - {TimeLimitInSeconds} Seconds";

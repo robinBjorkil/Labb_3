@@ -14,6 +14,11 @@ namespace Labb_3.ViewModel
 
         private CreateNewPackDialog? _newPackDialog;
 
+        //JSON
+        private const string FileName = "questionpacks.json";
+        private readonly SaveAndLoad _saveAndLoad;
+        //Json
+
         public ObservableCollection<QuestionPackViewModel> Packs { get; set; }
 
 
@@ -42,14 +47,18 @@ namespace Labb_3.ViewModel
 
         public MainWindowViewModel()
         {
-            //IsMenuAndConfigVisible = true;
-            //IsPlayerViewVisible = false;
-            
+            //Json
+            _saveAndLoad = new SaveAndLoad();
+            //JSON
+
+
             Packs = new ObservableCollection<QuestionPackViewModel>();
 
+            //Json
+            LoadDataAsync().ConfigureAwait(false);
+            //JSON
 
-           
-			ConfigurationViewModel = new ConfigurationViewModel(this);
+            ConfigurationViewModel = new ConfigurationViewModel(this);
 
 
             EditCommand = new DelegateCommand(Edit, CanEdit);
@@ -90,6 +99,39 @@ namespace Labb_3.ViewModel
 
 
         // ****************** METHODS **************************
+        
+        //JSON
+        public async Task LoadDataAsync()
+        {
+            SaveAndLoad saveAndLoad = new SaveAndLoad();
+
+            // Ladda de sparade frågepaketen från filen (ersätt "questionPacks.json" med ditt filnamn)
+            var questionPacks = await saveAndLoad.Load("questionPacks.json");
+
+            foreach (var questionPack in questionPacks)
+            {
+                // Omvandla varje QuestionPack till en QuestionPackViewModel och lägg till i Packs
+                Packs.Add(new QuestionPackViewModel(questionPack));
+            }
+            //var loadedQuestionPacks = await _saveAndLoad.Load(FileName);
+            //if (loadedQuestionPacks != null)
+            //{
+            //    foreach (var pack in loadedQuestionPacks)
+            //    {
+            //        Packs.Add(new QuestionPackViewModel(pack));
+            //    }
+            //}
+        }
+
+        // Metod för att spara data till filen
+        public async Task SaveDataAsync()
+        {
+            var packsToSave = Packs.Select(p => p.Model).ToList(); // Extraherar den underliggande datamodellen
+            await _saveAndLoad.Save(packsToSave, FileName);
+        }
+        //JSON
+
+
         public void Play(object obj)
         { 
 
@@ -102,9 +144,6 @@ namespace Labb_3.ViewModel
             PlayerViewModel.RaisePropertyChanged(nameof(PlayerViewModel.QuestionCounter));
 
         }
-
-       
-
 
 
         private void CancelQuestionPack(object obj)
