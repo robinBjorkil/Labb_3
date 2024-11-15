@@ -20,11 +20,9 @@ namespace Labb_3
         {
             InitializeComponent();
 
-            //JSON
-            _viewModel = new MainWindowViewModel();
-            //JSON
+         
 
-            DataContext = new MainWindowViewModel();
+            DataContext = _viewModel = new MainWindowViewModel();
 
             //JSON
             Loaded += MainWindow_Loaded; // Händelsen för när fönstret laddas

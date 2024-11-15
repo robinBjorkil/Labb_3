@@ -103,33 +103,28 @@ namespace Labb_3.ViewModel
         //JSON
         public async Task LoadDataAsync()
         {
-            SaveAndLoad saveAndLoad = new SaveAndLoad();
 
-            // Ladda de sparade frågepaketen från filen (ersätt "questionPacks.json" med ditt filnamn)
-            var questionPacks = await saveAndLoad.Load("questionPacks.json");
-
-            foreach (var questionPack in questionPacks)
+            var loadedQuestionPacks = await _saveAndLoad.Load(FileName);
+            if (loadedQuestionPacks != null)
             {
-                // Omvandla varje QuestionPack till en QuestionPackViewModel och lägg till i Packs
-                Packs.Add(new QuestionPackViewModel(questionPack));
+                Packs.Clear();
+                foreach (var pack in loadedQuestionPacks)
+                {
+                    
+                    Packs.Add(new QuestionPackViewModel(pack));
+                }
+                ActivePack = Packs.FirstOrDefault();
             }
-            //var loadedQuestionPacks = await _saveAndLoad.Load(FileName);
-            //if (loadedQuestionPacks != null)
-            //{
-            //    foreach (var pack in loadedQuestionPacks)
-            //    {
-            //        Packs.Add(new QuestionPackViewModel(pack));
-            //    }
-            //}
         }
 
         // Metod för att spara data till filen
         public async Task SaveDataAsync()
         {
-            var packsToSave = Packs.Select(p => p.Model).ToList(); // Extraherar den underliggande datamodellen
+            var packsToSave = Packs.Select(p => p.ConvertToQuestionPack()).ToList(); // Extraherar den underliggande datamodellen
             await _saveAndLoad.Save(packsToSave, FileName);
         }
         //JSON
+
 
 
         public void Play(object obj)

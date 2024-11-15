@@ -51,9 +51,25 @@ namespace Labb_3.ViewModel
 
 
         //JSON
-        public QuestionPack Model => model;
-        //JSON
+        public QuestionPack ConvertToQuestionPack()
+        {
+            QuestionPack pack = new QuestionPack(this.Name, this.Difficulty, this.TimeLimitInSeconds);
+            foreach (var question in this.Questions)
+            {
+                pack.Questions.Add(new Question(
+                    question.Query, 
+                    question.CorrectAnswer,
+                    question.InCorrectAnswers[0],
+                    question.InCorrectAnswers[1],
+                    question.InCorrectAnswers[2]
+                    ));
+            }
+            return pack;
 
+            
+        }
+        //JSON
+        
 
         public override string ToString()
         {
