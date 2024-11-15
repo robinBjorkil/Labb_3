@@ -176,7 +176,7 @@ namespace Labb_3.ViewModel
             var newQuestion = new Question("New Question", "", "", "", "");
             ActivePack?.Questions.Add(newQuestion);
             SelectedQuestion = newQuestion;
-            // _localDataService?.SaveQuestions(ActivePack?.Questions); (Json)
+            
         }
 
         // *************** File Methods ***************

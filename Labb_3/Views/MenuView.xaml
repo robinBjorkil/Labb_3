@@ -14,6 +14,7 @@
             <Menu>
                 <MenuItem Header="_File">
                     <MenuItem Header="_New Question Pack" Icon="{fa:Icon folderplus}"
+                              InputGestureText="Ctrl+N"
                               Command="{Binding AddQuestionPackCommand}"/>
                     <Separator/>
 
@@ -38,6 +39,7 @@
                     <Separator/>
 
                     <MenuItem Header="_Delete Question Pack" Icon="{fa:Icon folderminus}"
+                              InputGestureText="Ctrl+D"
                               Command="{Binding DeleteQuestionPackCommand}"/>
                     <Separator/>
 
@@ -46,32 +48,41 @@
                     <Separator/>
 
                     <MenuItem Header="E_xit" Icon="{fa:Icon dooropen}"
+                              InputGestureText="Ctrl+X"
                               Command="{Binding ConfigurationViewModel.ExitCommand}"/>
                 </MenuItem>
 
                 <MenuItem Header="_Edit">
-                    <MenuItem Header="_Add Question" Icon="{fa:Icon plus}"
+                    <MenuItem Header="_Add Question"
+                              InputGestureText="Ctrl+A"
+                              Icon="{fa:Icon plus}"
                               Command="{Binding ConfigurationViewModel.AddQuestionCommand}"/>
                     <Separator/>
 
-                    <MenuItem Header="_Remove Question" Icon="{fa:Icon minus}"
+                    <MenuItem Header="_Remove Question"
+                              InputGestureText="Ctrl+R"
+                              Icon="{fa:Icon minus}"
                               Command="{Binding ConfigurationViewModel.RemoveQuestionCommand}"/>
                     <Separator/>
 
                     <MenuItem Header="_Pack Options" Icon="{fa:Icon sliders}"
+                              InputGestureText="Ctrl+O"
                               Command="{Binding ConfigurationViewModel.PackOptionsCommand}"/>
                 </MenuItem>
 
                 <MenuItem Header="_View">
                     <MenuItem Header="_Play" Icon="{fa:Icon play}"
+                              InputGestureText="Ctrl+P"
                               Command="{Binding DataContext.PlayCommand, RelativeSource={RelativeSource AncestorType=Window}}"/>
                     <Separator/>
 
                     <MenuItem Header="_Edit" Icon="{fa:Icon gears}"
+                              InputGestureText="Ctrl+E"
                               Command="{Binding EditCommand}"/>
                     <Separator/>
 
                     <MenuItem Header="_Fullscreen" Icon="{fa:Icon expand}"
+                              InputGestureText="Ctrl+F"
                               Command="{Binding ConfigurationViewModel.FullScreenCommand}"/>
                 </MenuItem>
             </Menu>

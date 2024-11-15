@@ -14,6 +14,24 @@
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
     </Window.Resources>
 
+    <Window.InputBindings>
+        <!-- FILE -->
+        <KeyBinding Key="N" Modifiers="Ctrl" Command="{Binding AddQuestionPackCommand}"/>
+        <KeyBinding Key="D" Modifiers="Ctrl" Command="{Binding DeleteQuestionPackCommand}"/>
+        <KeyBinding Key="X" Modifiers="Ctrl" Command="{Binding ConfigurationViewModel.ExitCommand}"/>
+        
+        <!-- EDIT -->
+        <KeyBinding Key="R" Modifiers="Control" Command="{Binding ConfigurationViewModel.RemoveQuestionCommand}" />
+        <KeyBinding Key="A" Modifiers="Control" Command="{Binding ConfigurationViewModel.AddQuestionCommand}" />
+        <KeyBinding Key="O" Modifiers="Control" Command="{Binding ConfigurationViewModel.PackOptionsCommand}"/>
+
+        <!-- View -->
+        <KeyBinding Key="P" Modifiers="Ctrl" Command="{Binding PlayCommand}"/>
+        <KeyBinding Key="E" Modifiers="Ctrl" Command="{Binding EditCommand}"/>
+        <KeyBinding Key="F" Modifiers="Ctrl" Command="{Binding ConfigurationViewModel.FullScreenCommand}"/>
+        
+    </Window.InputBindings>
+
     
 
     <Grid>
