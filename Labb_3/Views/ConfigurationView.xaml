@@ -61,6 +61,10 @@
                  ItemsSource="{Binding ActivePack.Questions}"
                  SelectedItem="{Binding SelectedQuestion, Mode=TwoWay}">
             
+            <ListBox.InputBindings>
+                <KeyBinding Key="Delete" Command="{Binding RemoveQuestionCommand}" />
+            </ListBox.InputBindings>
+            
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel    x:Name="StackPanelLeft">

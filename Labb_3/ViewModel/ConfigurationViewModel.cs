@@ -160,7 +160,7 @@ namespace Labb_3.ViewModel
             {
                 ActivePack?.Questions.Remove(SelectedQuestion);
                 SelectedQuestion = null;
-               // _localDataService.SaveQuestions(ActivePack?.Questions);  (Json)
+               
             }
         }
 
