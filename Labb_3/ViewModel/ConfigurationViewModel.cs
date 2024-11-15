@@ -76,6 +76,18 @@ namespace Labb_3.ViewModel
         
         public DelegateCommand FullScreenCommand { get; }
 
+        // GÖR TEXTBOXARNA OSYNLIGA
+        private bool _isQuestionSelected;
+        public bool IsQuestionSelected
+        {
+            get => _isQuestionSelected;
+            set
+            {
+                _isQuestionSelected = value;
+                RaisePropertyChanged();
+            }
+        }
+        // GÖR TEXTBOXARNA OSYNLIGA
 
         // Select Question Field and Property
         private Question? _selectedQuestion;
@@ -89,6 +101,11 @@ namespace Labb_3.ViewModel
                 {
                     _selectedQuestion = value;
                     RaisePropertyChanged();
+
+                    // GÖR TEXTBOXARNA OSYNLIGA
+                    IsQuestionSelected = _selectedQuestion != null;
+                    // GÖR TEXTBOXARNA OSYNLIGA
+
                     RemoveQuestionCommand.RaiseCanExecuteChanged();
                 }
             }
